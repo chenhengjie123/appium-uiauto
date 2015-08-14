@@ -26,7 +26,7 @@ describe('find', function () {
           rootPage.clickMenuItem('Text Fields');
           $.delay(2000);
           var cell = $('cell')[0];
-          var id = '' + $.getId(cell);
+          var id = '' + $.getId(cell, "$('cell')[0]");
           var res = $.getElementsByType('UIATextField', id);
           return res;
         }
@@ -42,7 +42,7 @@ describe('find', function () {
           rootPage.clickMenuItem('Text Fields');
           $.delay(2000);
           var cell = $('cell')[2];
-          var id = '' + $.getId(cell);
+          var id = '' + $.getId(cell, "$('cell')[2]");
           var res = $.getElementsByType('UIASecureTextField', id);
           return res;
         }

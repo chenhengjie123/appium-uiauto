@@ -6,7 +6,7 @@
   , identifier: 0
   , _defaultContext: function (ctx) {
       if (typeof ctx === 'string') {
-        var el = this.cache[ctx];
+        var el = this.cache[ctx].getIns();
         if (el.isNil()) {
           throw new STATUS.StaleElementReference("Context element was nil");
         }
@@ -17,6 +17,19 @@
         return $.mainApp();
       }
     }
+
+  , _showCache: function(message){
+      if (message !== null){
+        $.debug(message);
+      }
+      $.debug('Begin to show elements in cache:');
+      for (var i = 0; i < this.cache.length; i++){
+          $.debug("Element with id " + i + " in cache is : " + this.cache[i].getExp()
+          + ". Its name is "+this.cache[i].getEle().name());
+      }
+      $.debug('Finish showing elements in cache.');
+    }
+
 
   , convertSelector: function (selector) {
       // some legacy: be backwards compatible, mechanic.js

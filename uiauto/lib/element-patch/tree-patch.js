@@ -3,9 +3,10 @@
 (function () {
 
   UIAElement.prototype.getTreeForXML = function () {
+    var showInvisible=false
     var target = $.target();
     target.pushTimeout(0);
-    var getTree = function (element, elementIndex, parentPath) {
+    var getTree = function (element, elementIndex, parentPath, showInvisible) {
       var curPath = parentPath + "/" + elementIndex;
       var rect = element.rect();
       var subtree = {
