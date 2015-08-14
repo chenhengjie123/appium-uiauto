@@ -11,6 +11,9 @@
       if (element !== null) {
         try {
           // element may still be null.
+          $.debug("Try to tap Element with name '" + element.name() +
+           "' and location (x:'" + element.rect().origin.x + "', y:'" +
+            element.rect().origin.y + "').");
           element.tap();
         } catch (e) {
           if (e.message.indexOf("(null)") !== -1) {

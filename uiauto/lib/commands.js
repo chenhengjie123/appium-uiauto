@@ -129,11 +129,13 @@ var commands;
       };
     } else if (rawRes instanceof UIAElement) {
       var elid = $.getId(rawRes);
+      $.debug("rawRes is instance of UIAElement")
       return {
         status: STATUS.Success.code,
         value: {'ELEMENT': elid }
       };
     } else if (rawRes.isMechanic === true) {
+      $.debug("rawRes is from Mechanic")
       var elIds = [];
       $(rawRes).each(function (idx, el) {
         var elid = $.getId(el);
@@ -144,6 +146,7 @@ var commands;
         value: elIds
       };
     } else {
+      $.debug("rawRes is not element")
       return {
         status: STATUS.Success.code,
         value: rawRes

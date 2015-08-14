@@ -18,6 +18,16 @@
       }
     }
 
+  , _showCache: function(message){
+          $.debug(message)
+          $.debug('Begin to show elements in cache:')
+          for (var i = 0; i < this.cache.length; i++){
+              $.debug("Element with id " + i + " in cache has name: " + this.cache[i].name());
+          }
+          $.debug('Finish showing elements in cache.')
+      }
+
+
   , convertSelector: function (selector) {
       // some legacy: be backwards compatible, mechanic.js
       switch (selector) {

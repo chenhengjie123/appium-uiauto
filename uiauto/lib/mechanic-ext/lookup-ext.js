@@ -34,10 +34,13 @@
     }
 
   , getElement: function (name) {
+      $._showCache("show all caches before get element using getElement(" + name + ")");
       if (typeof this.cache[name] !== 'undefined') {
         if (this.cache[name].isNil()) {
           throw new Error.StaleElementReference();
         }
+
+        $.debug("GetElement with name: "+name+", its name() is "+this.cache[name].name()+" isDisplay() is "+this.cache[name].isDisplayed());
         return this.cache[name];
       }
       return null;
@@ -48,11 +51,17 @@
       if (el.name() !== null) {
         $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
       }
+      $.debug("Show cache before add new element into cache")
+      $._showCache();
       this.cache[id] = el;
+      $.debug('Saved element with name ' + el.name() + ' to cache with id: ' + id);
+      $.debug('Element with id ' + id + ' in cache has name ' + this.cache[id].name());
+      $._showCache();
       return id;
     }
 
   , getElementByName: function (name, ctx) {
+      $._showCache("Get element by name: "+ ctx);
       if (name.match(/\*.*\*/)) {
         return this._defaultContext(ctx).getNameContains(
           name.replace(/^\*|\*$/g, ''), false);

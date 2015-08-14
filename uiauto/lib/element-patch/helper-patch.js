@@ -134,6 +134,11 @@
   };
 
   UIAElement.prototype.getElementLocation = function () {
+    $.debug("Type of element: " + this.type());
+    $.debug("Begin to getElementLocation with name:"+this.name());
+    $.debug("x:"+this.rect().origin.x);
+    $.debug("y:"+this.rect().origin.y);
+
     return this.rect().origin;
   };
 
@@ -142,6 +147,8 @@
   };
 
   UIAElement.prototype.isDisplayed = function () {
+    $.debug("this.name(): "+this.name())
+    $.debug("this.isVisible(): "+this.isVisible())
     return this.isVisible() === 1;
   };
 
