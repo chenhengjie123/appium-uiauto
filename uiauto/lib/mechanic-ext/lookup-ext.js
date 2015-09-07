@@ -42,7 +42,7 @@
           throw new Error.StaleElementReference();
         }
 
-        $.debug("GetElement with name: "+name+", its name() is "+eval(this.cache[name]).name()+" isDisplay() is "+eval(this.cache[name]).isDisplayed());
+        $.debug("GetElement with name: "+name+", its name() is "+el.name()+" isDisplay() is "+el.isDisplayed());
         return el;
       }
       return null;
@@ -71,7 +71,7 @@
       }
       $.debug("Show cache before add new element into cache");
       $._showCache();
-      this.cache[id] = expression;
+      this.cache[id] = expression.replace("au.", "this.");
       $.debug('Saved element with expression ' + expression + ' to cache with id: ' + id);
       $._showCache();
       return id;
