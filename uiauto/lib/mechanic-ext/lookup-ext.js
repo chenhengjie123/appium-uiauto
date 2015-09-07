@@ -38,6 +38,9 @@
       $._showCache("show all caches before get element using getElement(" + name + ")");
       el = eval(this.cache[name]);
       if (typeof this.cache[name] !== 'undefined') {
+        $.debug("element after eval is: "+el);
+        $.debug("type of element after eval is: "+ typeof el);
+        
         if (el.isNil()) {
           throw new Error.StaleElementReference();
         }
