@@ -126,7 +126,7 @@
 
       if (typeof ctx === 'string') {
         //_ctx = this.cache[ctx];
-        _ctx = eval(this.cache[ctx]);
+        _ctx = this.cache[ctx].getIns();
       } else if (typeof ctx !== 'undefined') {
         _ctx = ctx;
       }

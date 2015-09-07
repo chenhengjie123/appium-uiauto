@@ -4,4 +4,5 @@
 #import "./lookup-patch.js"
 #import "./nil-patch.js"
 #import "./tree-patch.js"
+#import "./cache-patch.js"
 /* jshint ignore:end */

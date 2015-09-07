@@ -15,7 +15,7 @@
 
       if (typeof ctx === 'string') {
         //_ctx = this.cache[ctx];
-        _ctx = eval(this.cache[ctx]);
+        _ctx = this.cache[ctx].getIns();
       } else if (typeof ctx !== 'undefined') {
         _ctx = ctx;
       }
@@ -36,11 +36,9 @@
 
   , getElement: function (name) {
       $._showCache("show all caches before get element using getElement(" + name + ")");
-      el = eval(this.cache[name]);
+      var el = this.cache[name].getIns();
       if (typeof this.cache[name] !== 'undefined') {
-        $.debug("element after eval is: "+el);
-        $.debug("type of element after eval is: "+ typeof el);
-        
+        $.debug("element in cache is: "+el);
         if (el.isNil()) {
           throw new Error.StaleElementReference();
         }
@@ -65,16 +63,16 @@
   //    return id;
   //  }
 
-  , getIdByExpression: function (expression) {
+  , getId: function (el, expression) {
       var id = (this.identifier++).toString();
       $.debug("Receive expression: "+expression);
-      var el = eval(expression);
       if (el.name() !== null){
           $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
       }
       $.debug("Show cache before add new element into cache");
-      $._showCache();
-      this.cache[id] = expression.replace("au.", "this.");
+      $._showCache("Show cache before add new element into cache");
+      var cacheElement = new CacheElement(el, expression)
+      this.cache[id] = cacheElement;
       $.debug('Saved element with expression ' + expression + ' to cache with id: ' + id);
       $._showCache();
       return id;

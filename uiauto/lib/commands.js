@@ -129,7 +129,7 @@ var commands;
       };
     } else if (rawRes instanceof UIAElement) {
       // cache the cmd, not instance
-      var elid = $.getIdByExpression(cmd);
+      var elid = $.getId(rawRes, cmd);
       $.debug("rawRes is instance of UIAElement")
       return {
         status: STATUS.Success.code,
@@ -139,7 +139,7 @@ var commands;
       $.debug("rawRes is from Mechanic")
       var elIds = [];
       $(rawRes).each(function (idx, el) {
-        var elid = $.getIdByExpression(cmd);
+        var elid = $.getId(rawRes, cmd);
         elIds.push({'ELEMENT': elid });
       });
       return {
