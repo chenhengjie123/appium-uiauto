@@ -99,7 +99,7 @@ var commands;
     return sendResultAndGetNext();
   };
 
-  function buildOkResult(rawRes) {
+  function buildOkResult(rawRes, cmd) {
     // Type return mapping is the following:
     // - UIAElement (excluding UIAElementArray and UIAElementNil)
     //   --> return a single element id
@@ -128,7 +128,8 @@ var commands;
         value: ''
       };
     } else if (rawRes instanceof UIAElement) {
-      var elid = $.getId(rawRes);
+      // cache the cmd, not instance
+      var elid = $.getIdByExpression(cmd);
       $.debug("rawRes is instance of UIAElement")
       return {
         status: STATUS.Success.code,
@@ -138,7 +139,7 @@ var commands;
       $.debug("rawRes is from Mechanic")
       var elIds = [];
       $(rawRes).each(function (idx, el) {
-        var elid = $.getId(el);
+        var elid = $.getIdByExpression(cmd);
         elIds.push({'ELEMENT': elid });
       });
       return {
@@ -193,7 +194,7 @@ var commands;
             $.debug('evaluating ' + cmd);
             var rawRes = eval(cmd);
             $.debug('evaluation finished');
-            result = buildOkResult(rawRes);
+            result = buildOkResult(rawRes, cmd);
           } catch (err) {
             $.error(err.toString());
             result = buildErrorResult(err);

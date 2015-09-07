@@ -31,11 +31,11 @@
       var numChildren = children.length;
       for (var i = 0; i < numChildren; i++) {
         var child = children[i];
-        if (!showInvisible && !child.isVisible()){
-          // Do not show invisible elements
-          $.debug("Do not show invisible elements. So element with name "+child.name()+" is ignored.");
-          continue;
-        }
+        //if (!showInvisible && !child.isVisible()){
+        //  // Do not show invisible elements
+        //  $.debug("Do not show invisible elements. So element with name "+child.name()+" is ignored.");
+        //  continue;
+        //}
         subtree[">"].push(getTree(child, i, curPath));
       }
       var elType = element.type();

@@ -6,7 +6,7 @@
   , identifier: 0
   , _defaultContext: function (ctx) {
       if (typeof ctx === 'string') {
-        var el = this.cache[ctx];
+        var el = eval(this.cache[ctx]);
         if (el.isNil()) {
           throw new STATUS.StaleElementReference("Context element was nil");
         }
@@ -19,13 +19,15 @@
     }
 
   , _showCache: function(message){
-          $.debug(message)
-          $.debug('Begin to show elements in cache:')
-          for (var i = 0; i < this.cache.length; i++){
-              $.debug("Element with id " + i + " in cache has name: " + this.cache[i].name());
-          }
-          $.debug('Finish showing elements in cache.')
+      if (message !== null){
+        $.debug(message);
       }
+      $.debug('Begin to show elements in cache:');
+      for (var i = 0; i < this.cache.length; i++){
+          $.debug("Element with id " + i + " in cache is : " + this.cache[i]);
+      }
+      $.debug('Finish showing elements in cache.');
+    }
 
 
   , convertSelector: function (selector) {

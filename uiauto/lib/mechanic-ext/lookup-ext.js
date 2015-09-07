@@ -14,7 +14,8 @@
         , elems = [];
 
       if (typeof ctx === 'string') {
-        _ctx = this.cache[ctx];
+        //_ctx = this.cache[ctx];
+        _ctx = eval(this.cache[ctx]);
       } else if (typeof ctx !== 'undefined') {
         _ctx = ctx;
       }
@@ -35,27 +36,43 @@
 
   , getElement: function (name) {
       $._showCache("show all caches before get element using getElement(" + name + ")");
+      el = eval(this.cache[name]);
       if (typeof this.cache[name] !== 'undefined') {
-        if (this.cache[name].isNil()) {
+        if (el.isNil()) {
           throw new Error.StaleElementReference();
         }
 
-        $.debug("GetElement with name: "+name+", its name() is "+this.cache[name].name()+" isDisplay() is "+this.cache[name].isDisplayed());
-        return this.cache[name];
+        $.debug("GetElement with name: "+name+", its name() is "+eval(this.cache[name]).name()+" isDisplay() is "+eval(this.cache[name]).isDisplayed());
+        return el;
       }
       return null;
     }
 
-  , getId: function (el) {
+  //, getId: function (el) {
+  //    var id = (this.identifier++).toString();
+  //    if (el.name() !== null) {
+  //      $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
+  //    }
+  //    $.debug("Show cache before add new element into cache")
+  //    $._showCache();
+  //    this.cache[id] = el;
+  //    $.debug('Saved element with name ' + el.name() + ' to cache with id: ' + id);
+  //    $.debug('Element with id ' + id + ' in cache has name ' + this.cache[id].name());
+  //    $._showCache();
+  //    return id;
+  //  }
+
+  , getIdByExpression: function (expression) {
       var id = (this.identifier++).toString();
-      if (el.name() !== null) {
-        $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
+      $.debug("Receive expression: "+expression);
+      var el = eval(expression);
+      if (el.name() !== null){
+          $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
       }
-      $.debug("Show cache before add new element into cache")
+      $.debug("Show cache before add new element into cache");
       $._showCache();
-      this.cache[id] = el;
-      $.debug('Saved element with name ' + el.name() + ' to cache with id: ' + id);
-      $.debug('Element with id ' + id + ' in cache has name ' + this.cache[id].name());
+      this.cache[id] = expression;
+      $.debug('Saved element with expression ' + expression + ' to cache with id: ' + id);
       $._showCache();
       return id;
     }
