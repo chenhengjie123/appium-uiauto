@@ -66,6 +66,9 @@
   , getId: function (el, expression) {
       var id = (this.identifier++).toString();
       $.debug("Receive expression: "+expression);
+      $.debug("Replace 'au.' to '$.' in expression '"+expression+"'");
+      expression = expression.replace("au.", "$.");
+
       if (el.name() !== null){
           $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
       }

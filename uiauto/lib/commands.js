@@ -139,7 +139,7 @@ var commands;
       $.debug("rawRes is from Mechanic")
       var elIds = [];
       $(rawRes).each(function (idx, el) {
-        var elid = $.getId(rawRes, cmd);
+        var elid = $.getId(el, cmd+"["+idx+"]");
         elIds.push({'ELEMENT': elid });
       });
       return {
