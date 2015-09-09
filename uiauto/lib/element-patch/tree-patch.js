@@ -30,7 +30,7 @@
       var numChildren = children.length;
       for (var i = 0; i < numChildren; i++) {
           var child = children[i];
-          $.debug("Value of onlyVisible is: "+onlyVisible);
+          $.debug("Value of onlyVisible is: "+env.onlyVisible);
           //Ignore invisible elements
           if (env.onlyVisible && child.isVisible() === 0){
               $.debug("Ignore invisible element with name "+child.name());
