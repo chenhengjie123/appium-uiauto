@@ -30,14 +30,14 @@
       var children = element.elements();
       var numChildren = children.length;
       for (var i = 0; i < numChildren; i++) {
-        var child = children[i];
-
-        //Ignore invisible elements
-        if (env.onlyVisible && child.isVisible() === 0){
-            $.debug("Ignore invisible element with name "+child.name())
-            continue;
-        }
-        subtree[">"].push(getTree(child, i, curPath));
+          var child = children[i];
+          $.debug("Value of onlyVisible is: "+onlyVisible);
+          //Ignore invisible elements
+          if (env.onlyVisible && child.isVisible() === 0){
+              $.debug("Ignore invisible element with name "+child.name());
+              continue;
+          }
+          subtree[">"].push(getTree(child, i, curPath));
       }
       var elType = element.type();
       var obj = {};
