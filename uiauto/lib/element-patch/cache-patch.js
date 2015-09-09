@@ -7,7 +7,7 @@
     }
 
     CacheElement.prototype.getIns = function () {
-        if (this.ele.name === "null"){
+        if (this.ele.name === null ){
             $.debug("Element instance in cache is unavailable. Try to get it again using its expression "+this.exp+".");
             // return object calculate by expression
             ele = eval(this.exp);
