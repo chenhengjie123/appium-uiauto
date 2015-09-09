@@ -34,7 +34,8 @@
 
         //Ignore invisible elements
         if (env.onlyVisible && child.isVisible() === 0){
-              continue;
+            $.debug("Ignore invisible element with name "+child.name())
+            continue;
         }
         subtree[">"].push(getTree(child, i, curPath));
       }
