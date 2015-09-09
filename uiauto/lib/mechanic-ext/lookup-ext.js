@@ -14,7 +14,6 @@
         , elems = [];
 
       if (typeof ctx === 'string') {
-        //_ctx = this.cache[ctx];
         _ctx = this.cache[ctx].getIns();
       } else if (typeof ctx !== 'undefined') {
         _ctx = ctx;
@@ -35,54 +34,31 @@
     }
 
   , getElement: function (name) {
-      $._showCache("show all caches before get element using getElement(" + name + ")");
       var el = this.cache[name].getIns();
       if (typeof this.cache[name] !== 'undefined') {
-        $.debug("element in cache is: "+el);
         if (el.isNil()) {
           throw new Error.StaleElementReference();
         }
-
-        $.debug("GetElement with name: "+name+", its name() is "+el.name()+" isDisplay() is "+el.isDisplayed());
         return el;
       }
       return null;
     }
 
-  //, getId: function (el) {
-  //    var id = (this.identifier++).toString();
-  //    if (el.name() !== null) {
-  //      $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
-  //    }
-  //    $.debug("Show cache before add new element into cache")
-  //    $._showCache();
-  //    this.cache[id] = el;
-  //    $.debug('Saved element with name ' + el.name() + ' to cache with id: ' + id);
-  //    $.debug('Element with id ' + id + ' in cache has name ' + this.cache[id].name());
-  //    $._showCache();
-  //    return id;
-  //  }
-
   , getId: function (el, expression) {
       var id = (this.identifier++).toString();
       $.debug("Receive expression: "+expression);
-      $.debug("Replace 'au.' to '$.' in expression '"+expression+"'");
       expression = expression.replace("au.", "$.");
+      $.debug("Replace 'au.' to '$.' in expression. The result is: '"+expression+"'. ");
 
       if (el.name() !== null){
           $.debug('Lookup returned ' + el + ' with the name "' + el.name() + '" (id: ' + id + ').');
       }
-      $.debug("Show cache before add new element into cache");
-      $._showCache("Show cache before add new element into cache");
       var cacheElement = new CacheElement(el, expression)
       this.cache[id] = cacheElement;
-      $.debug('Saved element with expression ' + expression + ' to cache with id: ' + id);
-      $._showCache();
       return id;
     }
 
   , getElementByName: function (name, ctx) {
-      $._showCache("Get element by name: "+ ctx);
       if (name.match(/\*.*\*/)) {
         return this._defaultContext(ctx).getNameContains(
           name.replace(/^\*|\*$/g, ''), false);

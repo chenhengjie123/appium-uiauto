@@ -125,7 +125,6 @@
         , elems = [];
 
       if (typeof ctx === 'string') {
-        //_ctx = this.cache[ctx];
         _ctx = this.cache[ctx].getIns();
       } else if (typeof ctx !== 'undefined') {
         _ctx = ctx;
@@ -209,9 +208,6 @@
     }
 
   , _getElementByIndexPath: function (path, ctx) {
-      var i = 500;
-      $.debug("Try to delay "+ i + " ms before _getElementByIndexPath");
-      $.delay(i);
 
       if (typeof ctx === "undefined") {
         ctx = $.mainApp();
@@ -225,7 +221,6 @@
       var foundElement = ctx;
       for (var i = 0; i < pathSet.length; i++) {
         foundElement = foundElement.elements()[pathSet[i]];
-        $.debug("foundElement: " + foundElement.toString());
         if (foundElement.isNil()) {
           throw new Error("Could not find element with path " + path);
         }

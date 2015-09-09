@@ -143,31 +143,18 @@
     var results = [];
     var element = this;
     var found, prop;
-    //$.debug("_elementOrElementsWithPredicateWeighted(predicate:"
-    //  +predicate+", weighting:"+weighting+", onlyFirst:"+onlyFirst
-    //  +", onlyVisible:"+onlyVisible+")");
     for (var i = 0; i < weighting.length; i++) {
       prop = weighting[i];
-      //$.debug("prop:"+prop);
       if (typeof element[prop] === 'function') {
         found = element[prop]();
-        // $.debug("found:"+found);
         if (predicate) found = found.withPredicate(predicate);
         if (onlyVisible) found = found.withValueForKey(true, 'isVisible');
-        //$.debug("found after check predicate and onlyVisible:"+found);
-        //try{
-        //  $.debug("type of found:"+found.type());
-        //} catch (e){
-        //  $.debug("type of found is invalid since found is not a function.");
-        //}
       } else {
         throw new Error("Invalid function '" + prop + "'");
       }
 
-      //$.debug("found.isValid():"+found.isValid());
       if (found.isValid()) {
         results = results.concat(found.toArray());
-        //$.debug("results:"+results.toString());
       }
 
       // If we don't find anything or if we aren't just trying to find the first
