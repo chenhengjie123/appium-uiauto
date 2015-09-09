@@ -31,6 +31,11 @@
       var numChildren = children.length;
       for (var i = 0; i < numChildren; i++) {
         var child = children[i];
+
+        //Ignore invisible elements
+        if (env.onlyVisible && child.isVisible() === 0){
+              continue;
+        }
         subtree[">"].push(getTree(child, i, curPath));
       }
       var elType = element.type();
