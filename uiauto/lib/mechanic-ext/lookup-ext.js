@@ -1,6 +1,9 @@
 /* globals ERROR, $ */
 
 (function () {
+
+  var onlyVisible = env.onlyVisible;
+
   $.extend($, {
 
     // Element lookup functions
@@ -55,9 +58,9 @@
   , getElementByName: function (name, ctx) {
       if (name.match(/\*.*\*/)) {
         return this._defaultContext(ctx).getNameContains(
-          name.replace(/^\*|\*$/g, ''), false);
+          name.replace(/^\*|\*$/g, ''), showInvisible);
       } else {
-        return this._defaultContext(ctx).getWithName(name, false);
+        return this._defaultContext(ctx).getWithName(name, onlyVisible);
       }
     }
 
@@ -66,16 +69,16 @@
         return this._defaultContext(ctx).getAllNameContains(
           name.replace(/^\*|\*$/g, ''), false);
       } else {
-        return this._defaultContext(ctx).getAllWithName(name, false);
+        return this._defaultContext(ctx).getAllWithName(name, onlyVisible);
       }
     }
 
   , getElementByAccessibilityId: function (accessibilityId, ctx) {
-      return this._defaultContext(ctx).getWithName(accessibilityId, false);
+      return this._defaultContext(ctx).getWithName(accessibilityId, onlyVisible);
     }
 
   , getElementsByAccessibilityId: function (accessibilityId, ctx) {
-      return this._defaultContext(ctx).getAllWithName(accessibilityId, false);
+      return this._defaultContext(ctx).getAllWithName(accessibilityId, onlyVisible);
     }
 
   , _getIdSearchPredicate: function (sel, exact) {
@@ -178,9 +181,9 @@
         };
         // try $.cache in the array first
         for (var key in $.cache) {
-          var elemFocused = $($.cache[key]).isFocused();
+          var elemFocused = $($.cache[key].getIns()).isFocused();
           if (elemFocused === true || elemFocused === 1) {
-            return $.cache[key];
+            return $.cache[key].getIns();
           }
         }
         foundElement = checkAll(this);
