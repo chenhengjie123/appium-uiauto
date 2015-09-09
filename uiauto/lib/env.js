@@ -12,7 +12,8 @@ var env;
     this.autoAcceptAlerts = dynamicEnv.autoAcceptAlerts;
     this.autoDismissAlerts = dynamicEnv.autoDismissAlerts;
     this.sendKeyStrategy = dynamicEnv.sendKeyStrategy;
-    this.onlyVisible = dynamicEnv.onlyVisible;
+    // fixme: it should be dynamicEnv.onlyVisible
+    this.onlyVisible = true;
   };
 
 })();
