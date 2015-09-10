@@ -2,12 +2,9 @@
 
 (function () {
 
-  var onlyVisible = env.onlyVisible;
-
   $.extend($, {
 
     // Element lookup functions
-
     lookup: function (selector, ctx) {
       if (typeof selector !== 'string') {
         return null;
@@ -62,33 +59,33 @@
     }
 
   , getElementByName: function (name, ctx) {
-      $.debug("Calling find function GetElementByName with onlyVisible: "+onlyVisible);
+      $.debug("Calling find function GetElementByName with env.onlyVisible: "+env.onlyVisible);
       if (name.match(/\*.*\*/)) {
         return this._defaultContext(ctx).getNameContains(
-          name.replace(/^\*|\*$/g, ''), onlyVisible);
+          name.replace(/^\*|\*$/g, ''), env.onlyVisible);
       } else {
-        return this._defaultContext(ctx).getWithName(name, onlyVisible);
+        return this._defaultContext(ctx).getWithName(name, env.onlyVisible);
       }
     }
 
   , getElementsByName: function (name, ctx) {
-      $.debug("Calling find function GetElementsByName with onlyVisible: "+onlyVisible);
+      $.debug("Calling find function GetElementsByName with onlyVisible: "+env.onlyVisible);
       if (name.match(/^\*.*\*$/)) {
         return this._defaultContext(ctx).getAllNameContains(
           name.replace(/^\*|\*$/g, ''), false);
       } else {
-        return this._defaultContext(ctx).getAllWithName(name, onlyVisible);
+        return this._defaultContext(ctx).getAllWithName(name, env.onlyVisible);
       }
     }
 
   , getElementByAccessibilityId: function (accessibilityId, ctx) {
-      $.debug("Calling find function getElementByAccessibilityId with onlyVisible: "+onlyVisible);
-      return this._defaultContext(ctx).getWithName(accessibilityId, onlyVisible);
+      $.debug("Calling find function getElementByAccessibilityId with env.onlyVisible: "+env.onlyVisible);
+      return this._defaultContext(ctx).getWithName(accessibilityId, env.onlyVisible);
     }
 
   , getElementsByAccessibilityId: function (accessibilityId, ctx) {
-      $.debug("Calling find function getElementsByAccessibilityId with onlyVisible: "+onlyVisible);
-      return this._defaultContext(ctx).getAllWithName(accessibilityId, onlyVisible);
+      $.debug("Calling find function getElementsByAccessibilityId with env.onlyVisible: "+env.onlyVisible);
+      return this._defaultContext(ctx).getAllWithName(accessibilityId, env.onlyVisible);
     }
 
   , _getIdSearchPredicate: function (sel, exact) {
@@ -107,21 +104,21 @@
     }
 
   , getElementById: function (sel) {
-      $.debug("Calling find function getElementById with onlyVisible: "+onlyVisible);
+      $.debug("Calling find function getElementById with env.onlyVisible: "+env.onlyVisible);
       var exactPred = this._getIdSearchPredicate(sel, true);
-      var exact = $.mainApp().getFirstWithPredicateWeighted(exactPred, onlyVisible);
+      var exact = $.mainApp().getFirstWithPredicateWeighted(exactPred, env.onlyVisible);
       if (exact) {
         return exact;
       } else {
         var pred = this._getIdSearchPredicate(sel, false);
-        return $.mainApp().getFirstWithPredicateWeighted(pred, onlyVisible);
+        return $.mainApp().getFirstWithPredicateWeighted(pred, env.onlyVisible);
       }
     }
 
   , getElementsById: function (sel) {
-      $.debug("Calling find function getElementsById with onlyVisible: "+onlyVisible);
+      $.debug("Calling find function getElementsById with env.onlyVisible: "+env.onlyVisible);
       var pred = this._getIdSearchPredicate(sel, false);
-      return $.mainApp().getAllWithPredicate(pred, onlyVisible);
+      return $.mainApp().getAllWithPredicate(pred, env.onlyVisible);
     }
 
   , _getElementsByType: function (type, ctx) {
