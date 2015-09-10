@@ -208,7 +208,6 @@
     }
 
   , _getElementByIndexPath: function (path, ctx) {
-
       if (typeof ctx === "undefined") {
         ctx = $.mainApp();
       }

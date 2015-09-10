@@ -215,4 +215,13 @@
     return this.getAllWithPredicate(_formatPredicate(targetName, true), onlyVisible);
   };
 
+  UIAElement.prototype.getWithNameAndTap = function (targetName, onlyVisible) {
+    var el = this.getWithName(targetName, onlyVisible);
+    if (!el || el.isNil()) {
+      throw new Error("Could not find the element to tap");
+    }
+    el.tap();
+    return el;
+  };
+
 })();
