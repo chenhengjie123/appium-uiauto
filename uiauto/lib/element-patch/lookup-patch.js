@@ -108,7 +108,7 @@
     return $.smartWrap(foundElements).dedup();
   };
 
-  UIAElement.prototype.getFirstWithPredicateWeighted = function (predicate) {
+  UIAElement.prototype.getFirstWithPredicateWeighted = function (predicate, onlyVisible) {
     var weighting = [
       'secureTextFields'
     , 'textFields'
@@ -116,7 +116,7 @@
     , 'elements'
     ];
     var elems = this._elementOrElementsWithPredicateWeighted(predicate,
-                  weighting, true);
+                  weighting, true, onlyVisible);
     return $.smartWrap(elems).dedup()[0];
   };
 

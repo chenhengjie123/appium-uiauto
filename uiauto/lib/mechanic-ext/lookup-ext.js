@@ -62,15 +62,17 @@
     }
 
   , getElementByName: function (name, ctx) {
+      $.debug("Calling find function GetElementByName with onlyVisible: "+onlyVisible);
       if (name.match(/\*.*\*/)) {
         return this._defaultContext(ctx).getNameContains(
-          name.replace(/^\*|\*$/g, ''), showInvisible);
+          name.replace(/^\*|\*$/g, ''), onlyVisible);
       } else {
         return this._defaultContext(ctx).getWithName(name, onlyVisible);
       }
     }
 
   , getElementsByName: function (name, ctx) {
+      $.debug("Calling find function GetElementsByName with onlyVisible: "+onlyVisible);
       if (name.match(/^\*.*\*$/)) {
         return this._defaultContext(ctx).getAllNameContains(
           name.replace(/^\*|\*$/g, ''), false);
@@ -80,10 +82,12 @@
     }
 
   , getElementByAccessibilityId: function (accessibilityId, ctx) {
+      $.debug("Calling find function getElementByAccessibilityId with onlyVisible: "+onlyVisible);
       return this._defaultContext(ctx).getWithName(accessibilityId, onlyVisible);
     }
 
   , getElementsByAccessibilityId: function (accessibilityId, ctx) {
+      $.debug("Calling find function getElementsByAccessibilityId with onlyVisible: "+onlyVisible);
       return this._defaultContext(ctx).getAllWithName(accessibilityId, onlyVisible);
     }
 
@@ -103,51 +107,60 @@
     }
 
   , getElementById: function (sel) {
+      $.debug("Calling find function getElementById with onlyVisible: "+onlyVisible);
       var exactPred = this._getIdSearchPredicate(sel, true);
-      var exact = $.mainApp().getFirstWithPredicateWeighted(exactPred);
+      var exact = $.mainApp().getFirstWithPredicateWeighted(exactPred, onlyVisible);
       if (exact) {
         return exact;
       } else {
         var pred = this._getIdSearchPredicate(sel, false);
-        return $.mainApp().getFirstWithPredicateWeighted(pred);
+        return $.mainApp().getFirstWithPredicateWeighted(pred, onlyVisible);
       }
     }
 
   , getElementsById: function (sel) {
+      $.debug("Calling find function getElementsById with onlyVisible: "+onlyVisible);
       var pred = this._getIdSearchPredicate(sel, false);
-      return $.mainApp().getAllWithPredicate(pred);
+      return $.mainApp().getAllWithPredicate(pred, onlyVisible);
     }
 
   , _getElementsByType: function (type, ctx) {
+      $.debug("Calling find function _getElementsByType with type: "+type+", ctx: "+ctx);
       var selector = this.convertSelector(type);
       var elems = this.lookup(selector, ctx);
       return $.smartWrap(elems);
     }
 
   , getElementsByType: function (type, ctx) {
+      $.debug("Calling find function getElementsByType with type: "+type+", ctx: "+ctx);
       var elems = this._getElementsByType(type, ctx);
       return $.smartWrap(elems).dedup();
     }
 
   , getElementByType: function (type, ctx) {
+      $.debug("Calling find function getElementByType with type: "+type+", ctx: "+ctx);
       var elems = this._getElementsByType(type, ctx);
       return $.smartWrap(elems).dedup()[0];
     }
 
   , getActiveElement: function () {
+      $.debug("Calling find function getActiveElement");
       return $($.mainWindow()).getActiveElement();
     }
 
   , getElementByUIAutomation: function (selectorCode, ctx) {
+      $.debug("Calling find function getElementByUIAutomation with selectorCode:"+selectorCode+", ctx:"+ctx);
       var elems = this._getElementsByUIAutomation(selectorCode, ctx);
       return $.smartWrap(elems).dedup()[0];
     }
   , getElementsByUIAutomation: function (selectorCode, ctx) {
+      $.debug("Calling find function getElementsByUIAutomation with selectorCode:"+selectorCode+", ctx:"+ctx);
       var elems = this._getElementsByUIAutomation(selectorCode, ctx);
       elems = $.smartWrap(elems);
       return $.smartWrap(elems).dedup();
     }
   , _getElementsByUIAutomation: function (selectorCode, ctx) {
+      $.debug("Calling find function _getElementsByUIAutomation with selectorCode:"+selectorCode+", ctx:"+ctx);
       if (!selectorCode) throw new Error('No code provided.');
 
       var code;
